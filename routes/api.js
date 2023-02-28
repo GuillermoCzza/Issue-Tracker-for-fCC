@@ -51,7 +51,7 @@ module.exports = function(app) {
       let Issue = mongoose.model('Issue', issueSchema, project);
 
       const query = req.query;
-      console.log(query);
+
       Issue.find(query, (err, docs) => {
         if (err) {
           console.error("GET error: " + err)
@@ -108,7 +108,6 @@ module.exports = function(app) {
       let noFields = true;
       for (let field in req.body){
         if (req.body[field] /*is truthy */ && field != "_id"){
-          console.log(field + ": " + req.body[field]);
           noFields = false;
         }
       }
@@ -119,8 +118,6 @@ module.exports = function(app) {
     
     
       let Issue = mongoose.model('Issue', issueSchema, project);
-
-      console.log(req.body);
 
       //create object to use to update the DB
       let updatedFields = {};
@@ -162,8 +159,6 @@ module.exports = function(app) {
       Issue.findByIdAndDelete(_id, (err, doc) => {
         if (!doc || err){
           console.error("DELETE error: " + err)
-          console.log("Borrado:");
-          console.log(doc);
           res.json({error: 'could not delete', _id: _id});
           return;
         } else {
